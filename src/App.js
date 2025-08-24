@@ -1,17 +1,16 @@
-import './App.css';
+import React from "react";
+import Navbar from "./components/Navbar";
+import News from "./components/News";
+import "./styles.css"; // Import the new stylesheet
+// import "./components/Globe";
 
-import React, { Component } from 'react';
-import Navbar from './components/Navbar';
-import News from './components/News'; 
-
-export default class App extends Component {
-
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <News />
-      </div>
-    )
-  }
+function App() {
+  return (
+    <div className="App">
+      <Navbar />
+      <News />
+    </div>
+  );
 }
+
+export default App;

@@ -1,25 +1,29 @@
-import React, { Component } from 'react';
+import React from "react";
 
-export class NewsItem extends Component {
-  render() {
-    let { title, description, imageUrl, newsUrl } = this.props;
-    return (
-      <div className="my-3">
-        <div className="card" style={{ width: "18rem" }}>
-          <img src={imageUrl || "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2194675071-copy.jpg?c=16x9&q=w_800,c_fill"} className="card-img-top" alt="news" />
-          <div className="card-body">
-            <h5 className="card-title">{title}</h5>
-            <p className="card-text">
-              {description}
-            </p>
-            <a rel="noreferrer"href={newsUrl} target='_blank' className="btn btn-sm btn-dark">
-              Read More
-            </a>
-          </div>
-        </div>
+const NewsItem = ({ title, description, imageUrl, newsUrl }) => {
+  return (
+    <div className="card news-card">
+      <img
+        src={
+          imageUrl || "https://placehold.co/500x300/2c2c2c/a0a0a0?text=No+Image"
+        }
+        className="card-img-top news-card-image"
+        alt="news"
+      />
+      <div className="card-body d-flex flex-column">
+        <h5 className="card-title">{title}</h5>
+        <p className="card-text flex-grow-1">{description}</p>
+        <a
+          href={newsUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="btn btn-sm read-more-btn mt-auto"
+        >
+          Read More
+        </a>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default NewsItem;
