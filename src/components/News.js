@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import NewsItem from "./newsitem";
+import React, { useState, useEffect, useCallback } from "react";
+import NewsItem from "./NewsItem";
 
 const categories = [
   "Top Stories",
@@ -17,9 +17,10 @@ const News = () => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Technology");
 
-  const apiKey = "ed706b8b7a9848b1b7db1e3802eacb32";
+  const apiKey = process.env.REACT_APP_NEWS_API_KEY;
 
-  const fetchNews = async () => {
+  // Wrap fetchNews in useCallback to make it a stable function identity
+  const fetchNews = useCallback(async () => {
     setLoading(true);
     const url = `https://newsapi.org/v2/top-headlines?country=us&category=${selectedCategory.toLowerCase()}&apiKey=${apiKey}&page=${page}&pageSize=18`;
     try {
@@ -34,11 +35,11 @@ const News = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedCategory, page, apiKey]); // Add dependencies for fetchNews itself
 
   useEffect(() => {
     fetchNews();
-  }, [selectedCategory, page]);
+  }, [fetchNews]); // Now fetchNews is the only dependency
 
   const handleNextClick = () => {
     setPage((prevPage) => prevPage + 1);
@@ -52,7 +53,7 @@ const News = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setPage(1); // Reset page to 1 when changing category
+    setPage(1);
   };
 
   if (loading) {
